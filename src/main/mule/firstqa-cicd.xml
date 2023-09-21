@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="7bbe9dc7-b606-4019-92f1-913f0f08649f" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="fed6f28f-dde2-46bc-b368-7ca2acaef2be" file="secure.properties" key="${secure.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<flow name="firstqa-cicdFlow" doc:id="f26db81f-dedf-426d-bd39-3a0a22995513" >
+		<http:listener doc:name="Listener" doc:id="48b2706d-19b7-495d-b849-62c566278fe3" config-ref="HTTP_Listener_config" path="/test"/>
+		<set-payload value="#[&quot;It worked! Secured property: &quot; ++ Mule::p('secure::encrypted.property')]" doc:name="Set Payload" doc:id="d8a077b4-856d-454c-8165-96e02cc5e46a" />
+		<logger level="INFO" doc:name="Logger" doc:id="290f50b5-0d34-4c08-adb2-bcebec46f04d" />
+		<ee:transform doc:name="Transform Message" doc:id="4e768b80-a696-4484-9050-66538550846a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<sub-flow name="firstqa-cicdSub_Flow" doc:id="01d4a8fa-3a9e-45ec-b7ef-aaffafdfffb0" >
+		<ee:transform doc:name="Transform Message" doc:id="db15baca-13a9-4729-b5f4-c35e200cb52c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
