@@ -15,6 +15,9 @@
 
 		<app.runtime>4.4.0-20220824</app.runtime>
 		<mule.maven.plugin.version>3.8.0</mule.maven.plugin.version>
+		<app.name>firstQA-cicd</app.name>
+		<env>Sandbox</env>
+		<munit.version>2.3.13</munit.version>
 	</properties>
 
 	<build>
