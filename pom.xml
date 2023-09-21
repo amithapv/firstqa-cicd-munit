@@ -112,6 +112,12 @@
 			<version>1.0.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-remote</artifactId>
+			<version>${munit.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- End: MUnits -->
 	</dependencies>
 	<repositories>
