@@ -4,6 +4,7 @@
     <pluginGroup>org.mule.tools</pluginGroup>
   </pluginGroups>
   <profiles>
+	<profile>
       <repositories>
 	<repository>
         <id>mulesoft-releases</id>
