@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>com.mycompany</groupId>
 	<artifactId>firstqa-cicd</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
-
 	<name>firstqa-cicd</name>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<app.runtime>4.4.0-20220824</app.runtime>
 		<mule.maven.plugin.version>3.8.0</mule.maven.plugin.version>
 		<app.name>firstQA-cicd</app.name>
 		<env>Sandbox</env>
 		<munit.version>2.3.13</munit.version>
 	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -33,7 +28,7 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-				<cloudHubDeployment>
+					<cloudHubDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<muleVersion>${app.runtime}</muleVersion>
 						<username>${anypoint.username}</username>
@@ -53,9 +48,47 @@
 					<classifier>mule-application</classifier>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.mulesoft.munit.tools</groupId>
+				<artifactId>munit-maven-plugin</artifactId>
+				<version>${munit.version}</version>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+							<goal>coverage-report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- START: MUnit coverage -->
+					<environmentVariables>
+						<secure.key>${decryption.key}</secure.key>
+					</environmentVariables>
+					<!-- END: MUnit coverage -->
+					<coverage>
+						<runCoverage>true</runCoverage>
+						<!-- START: MUnit coverage -->
+						<failBuild>true</failBuild>
+						<requiredApplicationCoverage>90</requiredApplicationCoverage>
+						<!-- <requiredResourceCoverage>50</requiredResourceCoverage> -->
+						<!-- <requiredFlowCoverage>50</requiredFlowCoverage> -->
+						<!-- END: MUnit coverage -->
+						<formats>
+							<!-- START: MUnit coverage -->
+							<format>console</format>
+							<format>sonar</format>
+							<format>json</format>
+							<!-- END: MUnit coverage -->
+							<format>html</format>
+						</formats>
+					</coverage>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
@@ -75,8 +108,27 @@
 			<version>1.2.5</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-runner</artifactId>
+			<version>2.3.13</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-tools</artifactId>
+			<version>2.3.13</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>assertions</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-
 	<repositories>
 		<repository>
 			<id>anypoint-exchange-v3</id>
@@ -91,7 +143,6 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-
 	<pluginRepositories>
 		<pluginRepository>
 			<id>mulesoft-releases</id>
@@ -103,5 +154,4 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>

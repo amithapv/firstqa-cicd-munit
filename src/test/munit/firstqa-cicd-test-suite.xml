@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="firstqa-cicd-test-suite.xml" />
+	<munit:test name="firstqa-cicd-test-suite-firstqa-cicdFlowTest" doc:id="693deb51-c65e-46da-832a-d5b338ee6309" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="d7c4db89-bd10-408d-9117-7f3a8c598385" >
+				<munit:payload value='"It worked! Secured property: yaaayy"' />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to firstqa-cicdFlow" doc:id="ff04dc45-0c1c-48aa-b929-6300ec6b28ac" name="firstqa-cicdFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="9c60e505-9f88-4b41-8ea8-7b86de4fc4ac" is="#[MunitTools::notNullValue()]" expression='#[payload == "It worked! Secured property: yaaayy"]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
