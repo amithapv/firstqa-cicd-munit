@@ -14,6 +14,7 @@
 		<app.name>firstQA-cicd-1</app.name>
 		<env>Sandbox</env>
 		<munit.version>2.3.13</munit.version>
+		<sonar.sources>src/</sonar.sources>
 	</properties>
 	<build>
 		<plugins>
