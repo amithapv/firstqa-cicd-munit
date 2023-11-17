@@ -39,7 +39,7 @@ jobs:
         with:
          args: >
             -Dsonar.organization=firstqa-cicd-munit
-            -Dsonar.projectKey=amithapv
+            -Dsonar.projectKey=firstqa-cicd-munit
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
