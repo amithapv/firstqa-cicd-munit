@@ -38,6 +38,7 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@master
         with:
          args: >
+            -Dsonar.projectKey=amithapv
             -Dsonar.organization=amithapv
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
