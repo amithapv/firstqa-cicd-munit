@@ -91,6 +91,7 @@ jobs:
           name: artifacts
           path: target/*.jar
   deploy:
+    needs: package
     runs-on: ubuntu-latest
     steps:    
     - name: Checkout this repo
