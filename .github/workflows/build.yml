@@ -31,18 +31,21 @@ jobs:
         KEY: ${{ secrets.decryption_key }}
       run: mvn test --settings .maven/settings.xml -Dsecure.key="$KEY"
   sonarqube:
+    name: SonarQube Trigger
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        with:
-         args: >
-            -Dsonar.projectKey=amithapv
-            -Dsonar.organization=amithapv
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    - name: Checking out
+      uses: actions/checkout@master
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@v1.2.0
+      with:
+        host: ${{ secrets.SONAR_HOST }}
+        login: ${{ secrets.SONAR_TOKEN }}
+        projectBaseDir: "src/"
+        projectKey: "my-custom-project"
   build:
     runs-on: ubuntu-latest
     steps:
