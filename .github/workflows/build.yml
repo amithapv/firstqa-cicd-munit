@@ -40,7 +40,6 @@ jobs:
          args: >
             -Dsonar.projectKey=amithapv
             -Dsonar.organization=amithapv
-            -Dsonar.sources=/src
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
