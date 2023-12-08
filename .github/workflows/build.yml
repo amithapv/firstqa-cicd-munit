@@ -46,6 +46,7 @@ jobs:
         login: ${{ secrets.SONAR_TOKEN }}
         projectBaseDir: "src/"
         projectKey: "my-custom-project"
+        sonar.organization: amithapv
   build:
     runs-on: ubuntu-latest
     steps:
