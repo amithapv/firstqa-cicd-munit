@@ -42,7 +42,7 @@ jobs:
     - name: SonarQube Scan
       uses: kitabisa/sonarqube-action@v1.2.0
       with:
-        host: ${{ secrets.SONAR_HOST }}
+        host: ${{ secrets.SONAR_HOST_URL }}
         login: ${{ secrets.SONAR_TOKEN }}
         projectBaseDir: "src/"
         projectKey: "my-custom-project"
